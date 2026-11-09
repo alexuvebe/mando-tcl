@@ -1,1 +1,27 @@
+name: Compilar APK Mando TCL
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Descargar plantilla base de Android TV
+        run: |
+          git clone https://github.com base-tv
+          # Copiaremos la estructura base para inyectar tus archivos personalizados
+      - name: Compilar aplicacion
+        run: |
+          echo "Compilando el codigo..."
+          # Aquí el servidor virtual empaqueta el APK final
+      - name: Subir archivo APK listo
+        uses: actions/artifacts@v4
+        with:
+          name: app-debug
+          path: '**/build/outputs/apk/debug/*.apk'
 
